@@ -1,4 +1,5 @@
 # TODO
+- [ ] Set repo 
 
 # NOTES
 

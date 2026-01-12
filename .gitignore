@@ -1,3 +1,52 @@
-# datasets folder 
-datasets/raw/
-datasets/processed/
+# --- Python / venv ---
+.venv/
+venv/
+ENV/
+env/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.egg-info/
+dist/
+build/
+
+# --- Jupyter ---
+.ipynb_checkpoints/
+
+# --- OS / IDE ---
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# --- Data (dataset do lab) ---
+data/
+**/data/*
+datasets/
+**/datasets/*
+
+# --- Outputs / artifacts (figuras, vídeos, logs, resultados) ---
+artifacts/
+results/
+outputs/
+outputs/graphs
+runs/
+logs/
+*.log
+
+# --- fig formats ---
+*.pdf
+*.mp4
+*.avi
+*.mov
+*.mkv
+
+# --- Coverage / pytest ---
+.coverage
+.pytest_cache/
+
+# --- Mypy / Ruff ---
+.mypy_cache/
+.ruff_cache/
+
