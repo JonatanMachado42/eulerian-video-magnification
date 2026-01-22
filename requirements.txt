@@ -1,7 +1,8 @@
 numpy>=1.21
 scipy>=1.7
 opencv-python>=4.5
+imageio>=2.31
+imageio-ffmpeg>=0.4
 matplotlib>=3.4
 tqdm>=4.62
 pandas>=1.5,<2.2
-
