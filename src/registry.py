@@ -4,6 +4,30 @@ from typing import Callable, Dict, List, Type
 from src.methods.base import MagnificationMethod
 
 _METHODS: Dict[str, Type[MagnificationMethod]] = {}
+_IMPORTED = False
+
+
+def _ensure_registered() -> None:
+    """
+    Lazily import method modules so they can register themselves.
+    This avoids circular imports (methods import registry to use @register_method).
+    """
+    global _IMPORTED
+    if _IMPORTED:
+        return
+
+    # Import modules (not classes) so decorators run
+    try:
+        import src.methods.identity  # noqa: F401
+    except Exception:
+        pass
+
+    try:
+        import src.methods.phase_wadhwa  # noqa: F401
+    except Exception:
+        pass
+
+    _IMPORTED = True
 
 
 def register_method(name: str) -> Callable[[Type[MagnificationMethod]], Type[MagnificationMethod]]:
@@ -20,17 +44,14 @@ def register_method(name: str) -> Callable[[Type[MagnificationMethod]], Type[Mag
 
 
 def list_methods() -> List[str]:
+    _ensure_registered()
     return sorted(_METHODS.keys())
 
 
 def get_method(name: str) -> Type[MagnificationMethod]:
+    _ensure_registered()
     key = name.strip().lower()
     if key not in _METHODS:
         available = ", ".join(list_methods()) or "(none)"
         raise KeyError(f"Unknown method '{key}'. Available: {available}")
     return _METHODS[key]
-
-
-# Import methods here so they register themselves via decorator.
-# Keep this at bottom to avoid circular imports.
-from src.methods.identity import IdentityMethod  # noqa: E402,F401
